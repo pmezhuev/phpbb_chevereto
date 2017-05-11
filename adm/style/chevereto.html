@@ -14,6 +14,13 @@
 			<dt><label for="chevereto_key">{{ lang('ACP_CHEVERETO_KEY') }}</label></dt>
 			<dd><input id="chevereto_key" type="text" size="40" maxlength="255" name="chevereto_key" value="{{ CHEVERETO_KEY }}"></dd>
 		</dl>
+		<dl>
+			<dt>
+				<label for="chevereto_exclude">{{ lang('ACP_CHEVERETO_EXCLUDE') }}</label><br />
+				<span>{{ lang('ACP_CHEVERETO_EXCLUDE_EXPLAIN') }}</span>
+			</dt>
+			<dd><textarea id="chevereto_exclude" cols="40" rows="3" name="chevereto_exclude">{{ CHEVERETO_EXCLUDE }}</textarea></dd>
+		</dl>
 	</fieldset>
 
 	<fieldset>

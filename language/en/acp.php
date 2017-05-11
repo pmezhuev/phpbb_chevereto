@@ -18,6 +18,8 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
+	'ACP_CHEVERETO_EXCLUDE'		=> 'Exclude list',
+	'ACP_CHEVERETO_EXCLUDE_EXPLAIN'	=> 'Comma separate domains list.',
 	'ACP_CHEVERETO_KEY'		=> 'API v1 Key',
 	'ACP_CHEVERETO_TITLE'		=> 'Chevereto API',
 	'ACP_CHEVERETO_URL'		=> 'Request URL',

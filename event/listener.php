@@ -60,13 +60,11 @@ class listener implements EventSubscriberInterface
 
 			foreach ($matches as $match)
 			{
-				$hosts = array(
-					'image'		=> parse_url($match[1], PHP_URL_HOST),
-					'server'	=> $this->config['server_name'],
-					'chevereto'	=> parse_url($this->config['chevereto_url'], PHP_URL_HOST),
-				);
+				$exclude = $this->config['server_name'] . ',' . parse_url($this->config['chevereto_url'], PHP_URL_HOST) . ',' . $this->config['chevereto_exclude'];
+				$exclude = explode(',', strtolower($exclude));
+				$host = parse_url($match[1], PHP_URL_HOST);
 
-				if (strcasecmp($hosts['image'], $hosts['server']) != 0 && strcasecmp($hosts['image'], $hosts['chevereto']) != 0)
+				if (array_search($host, $exclude) == false)
 				{
 					if ($result = $this->cache->get(md5($match[1])))
 					{
