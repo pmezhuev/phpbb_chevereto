@@ -1,0 +1,31 @@
+{
+    "name": "lordbeaver/chevereto",
+    "type": "phpbb-extension",
+    "description": "Расширение позволяет автоматически загружать изображения из BB-кодов [img] на хостинг с Chevereto.",
+    "homepage": "https://onlystorage.org/page/phpbb",
+    "version": "0.2.0",
+    "time": "$Date: 2017-05-11 16:36:26 +0300 (Чт, 11 май 2017) $",
+    "license": "The 3-Clause BSD License",
+    "authors": [
+        {
+            "name": "Lord Beaver",
+            "homepage": "https://onlyfriends.name/",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+		"ext-curl": "*"
+    },
+    "extra": {
+        "display-name": "Chevereto API",
+        "soft-require": {
+            "phpbb/phpbb": "3.2.*"
+        },
+        "version-check": {
+            "host": "onlystorage.org",
+            "directory": "/content/pages",
+            "filename": "version.json"
+        }
+    }
+}
