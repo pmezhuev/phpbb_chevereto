@@ -10,7 +10,7 @@
 2. Unzip to the `ext/lordbeaver` directory of your phpBB board.
 3. Rename `phpbb_chevereto-master` to `chevereto`.
 4. Navigate in the ACP to `Customise -> Manage extensions`.
-5. Look for `Chevereto API` under the Disabled Extensions list and click its `Enable` link.
+5. Look for `Chevereto API` under the `Disabled Extensions` list and click its `Enable` link.
 
 ## Uninstall
 1. Navigate in the ACP to `Customise -> Manage extensions`.
