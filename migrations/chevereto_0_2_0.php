@@ -8,7 +8,7 @@
 */
 namespace lordbeaver\chevereto\migrations;
 
-class chevereto_0_1 extends \phpbb\db\migration\migration
+class chevereto_0_2_0 extends \phpbb\db\migration\migration
 {
 	public function effectively_installed()
 	{
