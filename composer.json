@@ -4,7 +4,7 @@
     "description": "Расширение позволяет автоматически загружать изображения из BB-кодов [img] на хостинг с Chevereto.",
     "homepage": "https://onlystorage.org/page/phpbb",
     "version": "0.3.0",
-    "time": "$Date: 2017-05-12 00:06:42 +0300 (Пт, 12 май 2017) $",
+    "time": "$Date: 2017-05-12 13:05:53 +0300 (Пт, 12 май 2017) $",
     "license": "The 3-Clause BSD License",
     "authors": [
         {

@@ -52,6 +52,7 @@ class chevereto_module
 				trigger_error('FORM_INVALID');
 			}
 			$this->config->set('chevereto_exclude', str_replace(' ', '', $this->request->variable('chevereto_exclude', '', true)));
+			$this->config->set('chevereto_https', $this->request->variable('chevereto_https', 0));
 			$this->config->set('chevereto_key', $this->request->variable('chevereto_key', '', true));
 			$this->config->set('chevereto_url', $this->request->variable('chevereto_url', '', true));
 			trigger_error($this->language->lang('CONFIG_UPDATED') . adm_back_link($this->u_action));
@@ -59,6 +60,7 @@ class chevereto_module
 
 		$this->template->assign_vars(array(
 			'CHEVERETO_EXCLUDE'	=> $this->config['chevereto_exclude'],
+			'CHEVERETO_HTTPS'	=> $this->config['chevereto_https'] ? true : false,
 			'CHEVERETO_KEY'		=> $this->config['chevereto_key'],
 			'CHEVERETO_URL'		=> $this->config['chevereto_url'],
 			'U_ACTION'		=> $this->u_action,

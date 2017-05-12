@@ -25,7 +25,7 @@ class listener implements EventSubscriberInterface
 	static public function getSubscribedEvents()
 	{
 		return array(
-			'core.message_parser_check_message' => 'lb_chevereto',
+			'core.message_parser_check_message' => 'chevereto',
 		);
 	}
 
@@ -47,7 +47,7 @@ class listener implements EventSubscriberInterface
 		$this->config = $config;
 	}
 
-	public function lb_chevereto($event)
+	public function chevereto($event)
 	{
 		$allow_bbcode = $event['allow_bbcode'];
 		$message = $event['message'];
@@ -60,11 +60,15 @@ class listener implements EventSubscriberInterface
 
 			foreach ($matches as $match)
 			{
-				$exclude = $this->config['server_name'] . ',' . parse_url($this->config['chevereto_url'], PHP_URL_HOST) . ',' . $this->config['chevereto_exclude'];
-				$exclude = explode(',', strtolower($exclude));
-				$host = parse_url($match[1], PHP_URL_HOST);
+				$img = parse_url(strtolower($match[1]));
+				$exclude = array(
+					strtolower($this->config['server_name']),
+					parse_url(strtolower($this->config['chevereto_url']), PHP_URL_HOST),
+					($this->config['chevereto_https'] && $img['scheme'] == 'https') ? $img['host'] : null,
+				);
+				if (!empty($this->config['chevereto_exclude'])) $exclude = array_merge($exclude, explode(',', strtolower($this->config['chevereto_exclude'])));
 
-				if (array_search($host, $exclude) == false)
+				if (!in_array($img['host'], $exclude))
 				{
 					if ($result = $this->cache->get(md5($match[1])))
 					{

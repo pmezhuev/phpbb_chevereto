@@ -7,19 +7,26 @@
 	<fieldset>
 		<legend>{{ lang('GENERAL_OPTIONS') }}</legend>
 		<dl>
-			<dt><label for="chevereto_url">{{ lang('ACP_CHEVERETO_URL') }}</label></dt>
+			<dt><label for="chevereto_url">{{ lang('ACP_CHEVERETO_URL') ~ lang('COLON') }}</label></dt>
 			<dd><input id="chevereto_url" type="text" size="40" maxlength="255" name="chevereto_url" value="{{ CHEVERETO_URL }}"></dd>
 		</dl>
 		<dl>
-			<dt><label for="chevereto_key">{{ lang('ACP_CHEVERETO_KEY') }}</label></dt>
+			<dt><label for="chevereto_key">{{ lang('ACP_CHEVERETO_KEY') ~ lang('COLON') }}</label></dt>
 			<dd><input id="chevereto_key" type="text" size="40" maxlength="255" name="chevereto_key" value="{{ CHEVERETO_KEY }}"></dd>
 		</dl>
 		<dl>
 			<dt>
-				<label for="chevereto_exclude">{{ lang('ACP_CHEVERETO_EXCLUDE') }}</label><br />
+				<label for="chevereto_exclude">{{ lang('ACP_CHEVERETO_EXCLUDE') ~ lang('COLON') }}</label><br />
 				<span>{{ lang('ACP_CHEVERETO_EXCLUDE_EXPLAIN') }}</span>
 			</dt>
 			<dd><textarea id="chevereto_exclude" cols="40" rows="3" name="chevereto_exclude">{{ CHEVERETO_EXCLUDE }}</textarea></dd>
+		</dl>
+		<dl>
+			<dt><label for="chevereto_https">{{ lang('ACP_CHEVERETO_HTTPS') ~ lang('COLON') }}</label></dt>
+			<dd>
+				<label><input type="radio" class="radio" name="chevereto_https" id="chevereto_https" value="1" {% if CHEVERETO_HTTPS %}checked="checked"{% endif %}/> {{ lang('YES') }}</label>
+				<label><input type="radio" class="radio" name="chevereto_https" value="0" {% if not CHEVERETO_HTTPS %}checked="checked"{% endif %} /> {{ lang('NO') }}</label>
+			</dd>
 		</dl>
 	</fieldset>
 

@@ -8,7 +8,7 @@
 */
 namespace lordbeaver\chevereto\migrations;
 
-class chevereto_0_3_0 extends \phpbb\db\migration\migration
+class chevereto_0_3_1 extends \phpbb\db\migration\migration
 {
 	public function effectively_installed()
 	{
@@ -23,8 +23,7 @@ class chevereto_0_3_0 extends \phpbb\db\migration\migration
 	public function update_data()
 	{
 		return array(
-			array('config.add', array('chevereto_exclude', '')),
-			array('config.update', array('chevereto_version', '0.3')),
+			array('config.add', array('chevereto_https', '0')),
 		);
 	}
 }
