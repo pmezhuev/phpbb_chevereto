@@ -1,45 +1,49 @@
 {% include 'overall_header.html' %}
 
-<h1>{{ lang('ACP_CHEVERETO_TITLE') }}</h1>
+<h1>{{ lang('ACP_CHV_TITLE') }}</h1>
 
 <form id="acp_chevereto" method="post" action="{{ U_ACTION }}">
 
 	<fieldset>
 		<legend>{{ lang('GENERAL_OPTIONS') }}</legend>
 		<dl>
-			<dt><label for="chevereto_url">{{ lang('ACP_CHEVERETO_URL') ~ lang('COLON') }}</label></dt>
-			<dd><input id="chevereto_url" type="text" size="40" maxlength="255" name="chevereto_url" value="{{ CHEVERETO_URL }}"></dd>
+			<dt><label for="chv_url">{{ lang('ACP_CHV_URL') ~ lang('COLON') }}</label></dt>
+			<dd><input id="chv_url" type="text" size="40" maxlength="100" name="chv_url" value="{{ CHV_URL }}"></dd>
 		</dl>
 		<dl>
-			<dt><label for="chevereto_key">{{ lang('ACP_CHEVERETO_KEY') ~ lang('COLON') }}</label></dt>
-			<dd><input id="chevereto_key" type="text" size="40" maxlength="255" name="chevereto_key" value="{{ CHEVERETO_KEY }}"></dd>
+			<dt><label for="chv_key">{{ lang('ACP_CHV_KEY') ~ lang('COLON') }}</label></dt>
+			<dd><input id="chv_key" type="text" size="40" maxlength="50" name="chv_key" value="{{ CHV_KEY }}"></dd>
 		</dl>
+		<dl>
+			<dt><label for="chv_debug">{{ lang('ACP_CHV_DEBUG') ~ lang('COLON') }}</label></dt>
+			<dd>
+				<label><input type="radio" class="radio" name="chv_debug" id="chv_debug" value="1" {% if CHV_DEBUG %}checked="checked"{% endif %}/> {{ lang('YES') }}</label>
+				<label><input type="radio" class="radio" name="chv_debug" value="0" {% if not CHV_DEBUG %}checked="checked"{% endif %} /> {{ lang('NO') }}</label>
+			</dd>
+		</dl>
+	</fieldset>
+
+	<fieldset>
+		<legend>{{ lang('ACP_CHV_EXCLUDE_OPTIONS') }}</legend>
 		<dl>
 			<dt>
-				<label for="chevereto_exclude">{{ lang('ACP_CHEVERETO_EXCLUDE') ~ lang('COLON') }}</label><br />
-				<span>{{ lang('ACP_CHEVERETO_EXCLUDE_EXPLAIN') }}</span>
+				<label for="chv_exclude">{{ lang('ACP_CHV_EXCLUDE') ~ lang('COLON') }}</label><br />
+				<span>{{ lang('ACP_CHV_EXCLUDE_EXPLAIN') }}</span>
 			</dt>
-			<dd><textarea id="chevereto_exclude" cols="40" rows="3" name="chevereto_exclude">{{ CHEVERETO_EXCLUDE }}</textarea></dd>
+			<dd><textarea id="chv_exclude" cols="40" rows="3" maxlength="255" name="chv_exclude">{{ CHV_EXCLUDE }}</textarea></dd>
 		</dl>
 		<dl>
-			<dt><label for="chevereto_subdomain">{{ lang('ACP_CHEVERETO_SUBDOMAIN') ~ lang('COLON') }}</label></dt>
+			<dt><label for="chv_subdomain">{{ lang('ACP_CHV_SUBDOMAIN') ~ lang('COLON') }}</label></dt>
 			<dd>
-				<label><input type="radio" class="radio" name="chevereto_subdomain" id="chevereto_subdomain" value="1" {% if CHEVERETO_SUBDOMAIN %}checked="checked"{% endif %}/> {{ lang('YES') }}</label>
-				<label><input type="radio" class="radio" name="chevereto_subdomain" value="0" {% if not CHEVERETO_SUBDOMAIN %}checked="checked"{% endif %} /> {{ lang('NO') }}</label>
+				<label><input type="radio" class="radio" name="chv_subdomain" id="chv_subdomain" value="1" {% if CHV_SUBDOMAIN %}checked="checked"{% endif %}/> {{ lang('YES') }}</label>
+				<label><input type="radio" class="radio" name="chv_subdomain" value="0" {% if not CHV_SUBDOMAIN %}checked="checked"{% endif %} /> {{ lang('NO') }}</label>
 			</dd>
 		</dl>
 		<dl>
-			<dt><label for="chevereto_https">{{ lang('ACP_CHEVERETO_HTTPS') ~ lang('COLON') }}</label></dt>
+			<dt><label for="chv_https">{{ lang('ACP_CHV_HTTPS') ~ lang('COLON') }}</label></dt>
 			<dd>
-				<label><input type="radio" class="radio" name="chevereto_https" id="chevereto_https" value="1" {% if CHEVERETO_HTTPS %}checked="checked"{% endif %}/> {{ lang('YES') }}</label>
-				<label><input type="radio" class="radio" name="chevereto_https" value="0" {% if not CHEVERETO_HTTPS %}checked="checked"{% endif %} /> {{ lang('NO') }}</label>
-			</dd>
-		</dl>
-		<dl>
-			<dt><label for="chevereto_debug">{{ lang('ACP_CHEVERETO_DEBUG') ~ lang('COLON') }}</label></dt>
-			<dd>
-				<label><input type="radio" class="radio" name="chevereto_debug" id="chevereto_debug" value="1" {% if CHEVERETO_DEBUG %}checked="checked"{% endif %}/> {{ lang('YES') }}</label>
-				<label><input type="radio" class="radio" name="chevereto_debug" value="0" {% if not CHEVERETO_DEBUG %}checked="checked"{% endif %} /> {{ lang('NO') }}</label>
+				<label><input type="radio" class="radio" name="chv_https" id="chv_https" value="1" {% if CHV_HTTPS %}checked="checked"{% endif %}/> {{ lang('YES') }}</label>
+				<label><input type="radio" class="radio" name="chv_https" value="0" {% if not CHV_HTTPS %}checked="checked"{% endif %} /> {{ lang('NO') }}</label>
 			</dd>
 		</dl>
 	</fieldset>

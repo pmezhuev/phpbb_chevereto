@@ -18,12 +18,13 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
-	'ACP_CHEVERETO_DEBUG'		=> 'Enable error log',
-	'ACP_CHEVERETO_EXCLUDE'		=> 'Exclude list',
-	'ACP_CHEVERETO_EXCLUDE_EXPLAIN'	=> 'Comma separate domains list.',
-	'ACP_CHEVERETO_HTTPS'		=> 'Always ignore HTTPS',
-	'ACP_CHEVERETO_KEY'		=> 'API v1 key',
-	'ACP_CHEVERETO_TITLE'		=> 'Chevereto API',
-	'ACP_CHEVERETO_SUBDOMAIN'	=> 'Ignore subdomains',
-	'ACP_CHEVERETO_URL'		=> 'Request URL',
+	'ACP_CHV_DEBUG'			=> 'Enable error log',
+	'ACP_CHV_EXCLUDE'		=> 'Exclude list',
+	'ACP_CHV_EXCLUDE_EXPLAIN'	=> 'Comma separate domains list.',
+	'ACP_CHV_EXCLUDE_OPTIONS'	=> 'Exclude options',
+	'ACP_CHV_HTTPS'			=> 'Always ignore HTTPS',
+	'ACP_CHV_KEY'			=> 'API v1 key',
+	'ACP_CHV_SUBDOMAIN'		=> 'Ignore subdomains',
+	'ACP_CHV_TITLE'			=> 'Chevereto API',
+	'ACP_CHV_URL'			=> 'Request URL',
 ));

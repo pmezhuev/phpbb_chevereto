@@ -18,5 +18,5 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
-	'LOG_CHEVERETO_ERROR'		=> '<strong>Ошибка Chevereto:</strong> %1$s <br />» %2$s',
+	'LOG_CHV_ERROR'	=> '<strong>Ошибка Chevereto:</strong> %1$s <br />» %2$s',
 ));

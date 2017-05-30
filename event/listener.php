@@ -50,12 +50,7 @@ class listener implements EventSubscriberInterface
 	* @param \phpbb\log\log				$log
 	* @param \phpbb\user				$user
 	*/
-	public function __construct(
-		\phpbb\cache\driver\driver_interface	$cache,
-		\phpbb\config\config			$config,
-		\phpbb\log\log_interface		$log,
-		\phpbb\user				$user
-	)
+	public function __construct(\phpbb\cache\driver\driver_interface $cache, \phpbb\config\config $config, \phpbb\log\log_interface $log, \phpbb\user $user)
 	{
 		$this->cache	= $cache;
 		$this->config	= $config;
@@ -67,51 +62,80 @@ class listener implements EventSubscriberInterface
 	{
 		$allow_bbcode = $event['allow_bbcode'];
 		$allow_img_bbcode = $event['allow_img_bbcode'];
+		$curl = false;
+		$handlers = array();
 		$message = $event['message'];
+		$options = array(
+			CURLOPT_HEADER		=> false,
+			CURLOPT_POST		=> true,
+			CURLOPT_RETURNTRANSFER	=> true,
+			CURLOPT_TIMEOUT		=> 10,
+			CURLOPT_URL		=> $this->config['chevereto_url'] . '?key=' . $this->config['chevereto_key'],
+		);
 
 		if ($allow_bbcode && $allow_img_bbcode)
 		{
-			$matches = array();
-			preg_match_all('#\[img\](.*)\[/img\]#uiU', $message, $matches[], PREG_SET_ORDER);
-			$matches = $matches[0];
+			$images = array();
+			preg_match_all('#\[img\](.*)\[/img\]#uiU', $message, $images[], PREG_SET_ORDER);
+			$images = $images[0];
 
-			foreach ($matches as $match)
+			foreach ($images as $image)
 			{
-				if ($this->check_host($match[1]))
+				if ($this->check($image[1]))
 				{
-					$hash = 'chevereto_' . md5($match[1]);
-					if ($result = $this->cache->get($hash))
+					$hash = 'chv_i_' . md5($image[1]);
+					if ($ok = $this->cache->get($hash))
 					{
-						$message = str_replace($match[0], '[img]' . $result . '[/img]', $message);
+						$message = str_replace($image[0], '[img]' . $ok . '[/img]', $message);
 					}
 					else
 					{
-						$ch = curl_init($this->config['chevereto_url'] . '?key=' . $this->config['chevereto_key']);
-						curl_setopt($ch, CURLOPT_HEADER, 0);
-						curl_setopt($ch, CURLOPT_POST, 1);
-						curl_setopt($ch, CURLOPT_POSTFIELDS, array('source' => $match[1]));
-						curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-						curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-						if ($result = curl_exec($ch))
+						if (!$curl)
 						{
-							$result = json_decode($result, true);
-							if ($result['status_code'] == 200)
-							{
-								$message = str_replace($match[0], '[img]' . $result['image']['url'] . '[/img]', $message);
-								$this->cache->put($hash, $result['image']['url'], 86400);
-							}
-							elseif ($this->config['chevereto_debug'])
-							{
-								$result = array(
-									$result['error']['code'],
-									$result['error']['message'],
-								);
-								$this->log->add(critical, $this->user->data['user_id'], $this->user->ip, 'LOG_CHEVERETO_ERROR', false, $result);
-							}
+							$mh = curl_multi_init();
+							$curl = true;
 						}
-						curl_close($ch);
+						if (!isset($handlers['ch'][$hash]))
+						{
+							$handlers['im'][$hash] = $image[0];
+							$handlers['ch'][$hash] = curl_init();
+							curl_setopt_array ($handlers['ch'][$hash], $options);
+							curl_setopt($handlers['ch'][$hash], CURLOPT_POSTFIELDS, array('source' => $image[1]));
+							curl_multi_add_handle($mh, $handlers['ch'][$hash]);
+						}
 					}
 				}
+			}
+
+			if ($curl)
+			{
+				$running = null;
+				do {
+					curl_multi_exec($mh, $running);
+				} while ($running > 0);
+
+				foreach ($handlers['im'] as $hash => $image)
+				{
+					if ($ok = curl_multi_getcontent($handlers['ch'][$hash]))
+					{
+						curl_multi_remove_handle($mh, $handlers['ch'][$hash]);
+						curl_close($handlers['ch'][$hash]);
+						$ok = json_decode($ok, true);
+						if ($ok['status_code'] == 200)
+						{
+							$message = str_replace($image, '[img]' . $ok['image']['url'] . '[/img]', $message);
+							$this->cache->put($hash, $ok['image']['url'], 86400);
+						}
+						elseif ($this->config['chevereto_debug'])
+						{
+							$this->log->add(critical, $this->user->data['user_id'], $this->user->ip, 'LOG_CHV_ERROR', false, array(
+								$ok['error']['code'],
+								$ok['error']['message'],
+							));
+						}
+					}
+				}
+				curl_multi_close($mh);
 			}
 
 			$event['message'] = $message;
@@ -128,10 +152,10 @@ class listener implements EventSubscriberInterface
 		$event['lang_set_ext'] = $lang_set_ext;
 	}
 
-	private function check_host($image)
+	private function check($image)
 	{
 		$image = parse_url(strtolower($image));
-		$hash = 'chevereto_' . $image['host'];
+		$hash = 'chv_h_' . md5($image['host']);
 
 		if ($result = $this->cache->get($hash))
 		{
