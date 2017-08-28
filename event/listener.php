@@ -176,7 +176,9 @@ class listener implements EventSubscriberInterface
 				parse_url(strtolower($this->config['chevereto_url']), PHP_URL_HOST),
 			);
 			if (!empty($this->config['chevereto_exclude']))
+			{
 				$exclude = array_merge($exclude, explode(',', strtolower($this->config['chevereto_exclude'])));
+			}
 			$image	 = $image['host'];
 			$result	 = true;
 
