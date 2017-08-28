@@ -1,4 +1,5 @@
 # Chevereto API for phpBB 3.1/3.2
+[![Build Status](https://travis-ci.org/LordBeaver/phpbb_chevereto.svg?branch=master)](https://travis-ci.org/LordBeaver/phpbb_chevereto)
 
 ## Requirements
 * phpBB 3.1

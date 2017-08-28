@@ -1,19 +1,22 @@
 <?php
+
 /**
-*
-* @package phpBB Extension - Chevereto API
-* @copyright (c) 2017 Lord Beaver
-* @license https://opensource.org/licenses/BSD-3-Clause The 3-Clause BSD License
-*
-*/
+ *
+ * @package phpBB Extension - Chevereto API
+ * @copyright (c) 2017 Lord Beaver
+ * @license https://opensource.org/licenses/BSD-3-Clause The 3-Clause BSD License
+ *
+ */
+
 namespace lordbeaver\chevereto\acp;
 
 class chevereto_module
 {
+
 	/** @var \phpbb\config\config */
 	protected $config;
 
-	/** @var \phpbb\request\request $request */
+	/** @var \phpbb\request\request */
 	protected $request;
 
 	/** @var \phpbb\template\template */
@@ -29,21 +32,20 @@ class chevereto_module
 	{
 		global $phpbb_container;
 
-		$this->container	= $phpbb_container;
-		$this->config		= $this->container->get('config');
-		$this->request		= $this->container->get('request');
-		$this->template		= $this->container->get('template');
-		$this->user		= $this->container->get('user');
+		$this->container = $phpbb_container;
+		$this->config	 = $this->container->get('config');
+		$this->request	 = $this->container->get('request');
+		$this->template	 = $this->container->get('template');
+		$this->user		 = $this->container->get('user');
 
 		$this->user->add_lang_ext('lordbeaver/chevereto', 'acp');
 	}
 
 	public function main($id, $mode)
 	{
-		$this->tpl_name = 'chevereto';
-		$this->page_title = $this->user->lang['ACP_CHEVERETO_TITLE'];
-		$settings = unserialize($this->config['chevereto_settings']);
-		$form_key = 'acp_chevereto';
+		$this->tpl_name		 = 'chevereto';
+		$this->page_title	 = $this->user->lang['ACP_CHV_TITLE'];
+		$form_key			 = 'acp_chevereto';
 		add_form_key($form_key);
 
 		if ($this->request->is_set_post('submit'))
@@ -62,13 +64,14 @@ class chevereto_module
 		}
 
 		$this->template->assign_vars(array(
-			'CHV_DEBUG'		=> $this->config['chevereto_debug'] ? true : false,
-			'CHV_EXCLUDE'		=> $this->config['chevereto_exclude'],
-			'CHV_HTTPS'		=> $this->config['chevereto_https'] ? true : false,
-			'CHV_KEY'		=> $this->config['chevereto_key'],
-			'CHV_SUBDOMAIN'		=> $this->config['chevereto_subdomain'] ? true : false,
-			'CHV_URL'		=> $this->config['chevereto_url'],
-			'U_ACTION'		=> $this->u_action,
+			'CHV_DEBUG'		 => $this->config['chevereto_debug'] ? true : false,
+			'CHV_EXCLUDE'	 => $this->config['chevereto_exclude'],
+			'CHV_HTTPS'		 => $this->config['chevereto_https'] ? true : false,
+			'CHV_KEY'		 => $this->config['chevereto_key'],
+			'CHV_SUBDOMAIN'	 => $this->config['chevereto_subdomain'] ? true : false,
+			'CHV_URL'		 => $this->config['chevereto_url'],
+			'U_ACTION'		 => $this->u_action,
 		));
 	}
+
 }

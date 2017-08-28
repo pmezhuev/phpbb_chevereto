@@ -1,15 +1,18 @@
 <?php
+
 /**
-*
-* @package phpBB Extension - Chevereto API
-* @copyright (c) 2017 Lord Beaver
-* @license https://opensource.org/licenses/BSD-3-Clause The 3-Clause BSD License
-*
-*/
+ *
+ * @package phpBB Extension - Chevereto API
+ * @copyright (c) 2017 Lord Beaver
+ * @license https://opensource.org/licenses/BSD-3-Clause The 3-Clause BSD License
+ *
+ */
+
 namespace lordbeaver\chevereto\migrations;
 
 class chevereto_0_3_2 extends \phpbb\db\migration\migration
 {
+
 	public function effectively_installed()
 	{
 		return (isset($this->config['chevereto_version']) && version_compare($this->config['chevereto_version'], '0.3.2', '>='));
@@ -28,4 +31,5 @@ class chevereto_0_3_2 extends \phpbb\db\migration\migration
 			array('config.update', array('chevereto_version', '0.3.2')),
 		);
 	}
+
 }
