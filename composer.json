@@ -17,6 +17,9 @@
         "php": ">=5.4",
 		"ext-curl": "*"
     },
+    "require-dev": {
+        "phpbb/epv": "dev-master"
+    },
     "extra": {
         "display-name": "Chevereto API",
         "soft-require": {
