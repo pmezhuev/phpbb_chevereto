@@ -1,6 +1,6 @@
 # Opt into fully virtualized infrastructure
 sudo: required
-dist: precise
+dist: trusty
 
 language: php
 
