@@ -5,6 +5,7 @@ services:
             - @cache.driver
             - @config
             - @log
+            - @template
             - @user
         tags:
             - { name: event.listener }

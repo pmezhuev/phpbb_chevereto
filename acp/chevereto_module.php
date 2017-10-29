@@ -54,21 +54,27 @@ class chevereto_module
 			{
 				trigger_error('FORM_INVALID');
 			}
+			$this->config->set('chevereto_color', $this->request->variable('chv_color', 'default', true));
 			$this->config->set('chevereto_debug', $this->request->variable('chv_debug', 0));
 			$this->config->set('chevereto_exclude', str_replace(' ', '', $this->request->variable('chv_exclude', '', true)));
 			$this->config->set('chevereto_https', $this->request->variable('chv_https', 0));
 			$this->config->set('chevereto_key', $this->request->variable('chv_key', '', true));
+			$this->config->set('chevereto_plugin', $this->request->variable('chv_plugin', 0));
 			$this->config->set('chevereto_subdomain', $this->request->variable('chv_subdomain', 1));
+			$this->config->set('chevereto_type', $this->request->variable('chv_type', 'bbcode-embed-medium', true));
 			$this->config->set('chevereto_url', $this->request->variable('chv_url', '', true));
 			trigger_error($this->user->lang['CONFIG_UPDATED'] . adm_back_link($this->u_action));
 		}
 
 		$this->template->assign_vars(array(
+			'CHV_COLOR'		 => $this->config['chevereto_color'],
 			'CHV_DEBUG'		 => $this->config['chevereto_debug'] ? true : false,
 			'CHV_EXCLUDE'	 => $this->config['chevereto_exclude'],
 			'CHV_HTTPS'		 => $this->config['chevereto_https'] ? true : false,
 			'CHV_KEY'		 => $this->config['chevereto_key'],
+			'CHV_PLUGIN'	 => $this->config['chevereto_plugin'] ? true : false,
 			'CHV_SUBDOMAIN'	 => $this->config['chevereto_subdomain'] ? true : false,
+			'CHV_TYPE'		 => $this->config['chevereto_type'],
 			'CHV_URL'		 => $this->config['chevereto_url'],
 			'U_ACTION'		 => $this->u_action,
 		));

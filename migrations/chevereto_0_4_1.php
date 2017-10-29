@@ -51,6 +51,9 @@ class chevereto_0_4_1 extends \phpbb\db\migration\migration
 						'module_auth'		 => 'ext_lordbeaver/chevereto && acl_a_board',
 					),
 				)),
+			array('config.add', array('chevereto_color', 'default')),
+			array('config.add', array('chevereto_plugin', '0')),
+			array('config.add', array('chevereto_type', 'bbcode-embed-medium')),
 			array('config.update', array('chevereto_version', '0.4.1')),
 		);
 	}

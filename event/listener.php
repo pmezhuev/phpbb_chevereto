@@ -29,6 +29,7 @@ class listener implements EventSubscriberInterface
 	{
 		return array(
 			'core.message_parser_check_message'	 => 'chevereto',
+			'core.page_header_after'			 => 'template',
 			'core.user_setup'					 => 'language'
 		);
 	}
@@ -42,6 +43,9 @@ class listener implements EventSubscriberInterface
 	/** @var \phpbb\log\log_interface */
 	protected $log;
 
+	/** @var \phpbb\template\template */
+	protected $template;
+
 	/** @var \phpbb\user */
 	protected $user;
 
@@ -53,11 +57,12 @@ class listener implements EventSubscriberInterface
 	 * @param \phpbb\log\log			$log
 	 * @param \phpbb\user				$user
 	 */
-	public function __construct(\phpbb\cache\driver\driver_interface $cache, \phpbb\config\config $config, \phpbb\log\log_interface $log, \phpbb\user $user)
+	public function __construct(\phpbb\cache\driver\driver_interface $cache, \phpbb\config\config $config, \phpbb\log\log_interface $log, \phpbb\template\template $template, \phpbb\user $user)
 	{
 		$this->cache	 = $cache;
 		$this->config	 = $config;
 		$this->log		 = $log;
+		$this->template	 = $template;
 		$this->user		 = $user;
 	}
 
@@ -156,6 +161,16 @@ class listener implements EventSubscriberInterface
 		$event['lang_set_ext']	 = $lang_set_ext;
 	}
 
+	public function template($event)
+	{
+		$this->template->assign_vars(array(
+			'CHV_PLUGIN_COLOR'	 => $this->config['chevereto_color'],
+			'CHV_PLUGIN_ENABLE'	 => $this->config['chevereto_plugin'] ? true : false,
+			'CHV_PLUGIN_HOST'	 => $this->host(),
+			'CHV_PLUGIN_TYPE'	 => $this->config['chevereto_type'],
+		));
+	}
+
 	private function check($image)
 	{
 		$image	 = parse_url(strtolower($image));
@@ -173,7 +188,7 @@ class listener implements EventSubscriberInterface
 		{
 			$exclude = array(
 				strtolower($this->config['server_name']),
-				parse_url(strtolower($this->config['chevereto_url']), PHP_URL_HOST),
+				$this->host(),
 			);
 			if (!empty($this->config['chevereto_exclude']))
 			{
@@ -197,6 +212,12 @@ class listener implements EventSubscriberInterface
 		}
 
 		$this->cache->put($hash, $result, 3600);
+		return $result;
+	}
+
+	private function host()
+	{
+		$result = parse_url(strtolower($this->config['chevereto_url']), PHP_URL_HOST);
 		return $result;
 	}
 

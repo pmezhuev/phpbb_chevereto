@@ -8,11 +8,11 @@
 		<legend>{{ lang('GENERAL_OPTIONS') }}</legend>
 		<dl>
 			<dt><label for="chv_url">{{ lang('ACP_CHV_URL') ~ lang('COLON') }}</label></dt>
-			<dd><input id="chv_url" type="text" size="40" maxlength="100" name="chv_url" value="{{ CHV_URL }}"></dd>
+			<dd><input type="url" class="inputbox autowidth" name="chv_url" id="chv_url" size="40" maxlength="100" value="{{ CHV_URL }}" /></dd>
 		</dl>
 		<dl>
 			<dt><label for="chv_key">{{ lang('ACP_CHV_KEY') ~ lang('COLON') }}</label></dt>
-			<dd><input id="chv_key" type="text" size="40" maxlength="50" name="chv_key" value="{{ CHV_KEY }}"></dd>
+			<dd><input type="text" class="autowidth" name="chv_key" id="chv_key" size="40" maxlength="50" value="{{ CHV_KEY }}" /></dd>
 		</dl>
 		<dl>
 			<dt><label for="chv_debug">{{ lang('ACP_CHV_DEBUG') ~ lang('COLON') }}</label></dt>
@@ -24,23 +24,64 @@
 	</fieldset>
 
 	<fieldset>
+		<legend>{{ lang('ACP_CHV_PLUGIN_OPTIONS') }}</legend>
+		<dl>
+			<dt><label for="chv_plugin">{{ lang('ACP_CHV_PLUGIN') ~ lang('COLON') }}</label></dt>
+			<dd>
+				<label><input type="radio" class="radio" name="chv_plugin" id="chv_plugin" value="1" {% if CHV_PLUGIN %}checked="checked"{% endif %}/> {{ lang('YES') }}</label>
+				<label><input type="radio" class="radio" name="chv_plugin" value="0" {% if not CHV_PLUGIN %}checked="checked"{% endif %} /> {{ lang('NO') }}</label>
+			</dd>
+		</dl>
+		<dl>
+			<dt><label for="chv_color">{{ lang('ACP_CHV_PLUGIN_COLOR') ~ lang('COLON') }}</label></dt>
+			<dd>
+				<select name="chv_color" id="chv_color">
+					<option value="default"{% if CHV_COLOR == "default" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_COLOR_DEFAULT') }}</option>
+					<option value="clear"{% if CHV_COLOR == "clear" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_COLOR_CLEAR') }}</option>
+					<option value="turquoise"{% if CHV_COLOR == "turquoise" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_COLOR_TURQUOISE') }}</option>
+					<option value="green"{% if CHV_COLOR == "green" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_COLOR_GREEN') }}</option>
+					<option value="blue"{% if CHV_COLOR == "blue" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_COLOR_BLUE') }}</option>
+					<option value="purple"{% if CHV_COLOR == "purple" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_COLOR_PURPLE') }}</option>
+					<option value="darkblue"{% if CHV_COLOR == "darkblue" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_COLOR_DARKBLUE') }}</option>
+					<option value="yellow"{% if CHV_COLOR == "yellow" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_COLOR_YELLOW') }}</option>
+					<option value="orange"{% if CHV_COLOR == "orange" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_COLOR_ORANGE') }}</option>
+					<option value="red"{% if CHV_COLOR == "red" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_COLOR_RED') }}</option>
+					<option value="grey"{% if CHV_COLOR == "grey" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_COLOR_GREY') }}</option>
+					<option value="black"{% if CHV_COLOR == "black" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_COLOR_BLACK') }}</option>
+				</select>
+			</dd>
+		</dl>
+		<dl>
+			<dt><label for="chv_type">{{ lang('ACP_CHV_PLUGIN_TYPE') ~ lang('COLON') }}</label></dt>
+			<dd>
+				<select name="chv_type" id="chv_type">
+					<option value="bbcode-embed"{% if CHV_TYPE == "bbcode-embed" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_TYPE_EMBED') }}</option>
+					<option value="bbcode-embed-full"{% if CHV_TYPE == "bbcode-embed-full" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_TYPE_FULL') }}</option>
+					<option value="bbcode-embed-medium"{% if CHV_TYPE == "bbcode-embed-medium" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_TYPE_DEFAULT') }}</option>
+					<option value="bbcode-embed-thumbnail"{% if CHV_TYPE == "bbcode-embed-thumbnail" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_TYPE_THUMBNAIL') }}</option>
+				</select>
+			</dd>
+		</dl>
+	</fieldset>
+
+	<fieldset>
 		<legend>{{ lang('ACP_CHV_EXCLUDE_OPTIONS') }}</legend>
 		<dl>
 			<dt>
 				<label for="chv_exclude">{{ lang('ACP_CHV_EXCLUDE') ~ lang('COLON') }}</label><br />
 				<span>{{ lang('ACP_CHV_EXCLUDE_EXPLAIN') }}</span>
 			</dt>
-			<dd><textarea id="chv_exclude" cols="40" rows="3" maxlength="255" name="chv_exclude">{{ CHV_EXCLUDE }}</textarea></dd>
+			<dd><textarea name="chv_exclude" id="chv_exclude" rows="3" cols="40">{{ CHV_EXCLUDE }}</textarea></dd>
 		</dl>
 		<dl>
-			<dt><label for="chv_subdomain">{{ lang('ACP_CHV_SUBDOMAIN') ~ lang('COLON') }}</label></dt>
+			<dt><label for="chv_subdomain">{{ lang('ACP_CHV_EXCLUDE_SUB') ~ lang('COLON') }}</label></dt>
 			<dd>
 				<label><input type="radio" class="radio" name="chv_subdomain" id="chv_subdomain" value="1" {% if CHV_SUBDOMAIN %}checked="checked"{% endif %}/> {{ lang('YES') }}</label>
 				<label><input type="radio" class="radio" name="chv_subdomain" value="0" {% if not CHV_SUBDOMAIN %}checked="checked"{% endif %} /> {{ lang('NO') }}</label>
 			</dd>
 		</dl>
 		<dl>
-			<dt><label for="chv_https">{{ lang('ACP_CHV_HTTPS') ~ lang('COLON') }}</label></dt>
+			<dt><label for="chv_https">{{ lang('ACP_CHV_EXCLUDE_HTTPS') ~ lang('COLON') }}</label></dt>
 			<dd>
 				<label><input type="radio" class="radio" name="chv_https" id="chv_https" value="1" {% if CHV_HTTPS %}checked="checked"{% endif %}/> {{ lang('YES') }}</label>
 				<label><input type="radio" class="radio" name="chv_https" value="0" {% if not CHV_HTTPS %}checked="checked"{% endif %} /> {{ lang('NO') }}</label>
