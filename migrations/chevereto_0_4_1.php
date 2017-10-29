@@ -45,6 +45,10 @@ class chevereto_0_4_1 extends \phpbb\db\migration\migration
 					(isset($this->config['onlyfriends_version']) && version_compare($this->config['onlyfriends_version'], '1.3.0', '<')),
 					array('module.add', array('acp', 'ACP_CAT_DOT_MODS', 'ACP_ONLYFRIENDS_EXT')),
 				)),
+			array('if', array(
+					(!isset($this->config['onlyfriends_version'])),
+					array('module.add', array('acp', 'ACP_CAT_DOT_MODS', 'ACP_ONLYFRIENDS_EXT')),
+				)),
 			array('module.add', array('acp', 'ACP_ONLYFRIENDS_EXT', array(
 						'module_basename'	 => '\lordbeaver\chevereto\acp\chevereto_module',
 						'module_mode'		 => 'settings',
