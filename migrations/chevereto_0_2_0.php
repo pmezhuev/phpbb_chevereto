@@ -2,8 +2,9 @@
 
 /**
  *
- * @package phpBB Extension - Chevereto API
- * @copyright (c) 2017 Lord Beaver
+ * Chevereto API
+ *
+ * @copyright © 2017 Lord Beaver
  * @license https://opensource.org/licenses/BSD-3-Clause The 3-Clause BSD License
  *
  */

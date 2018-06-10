@@ -2,8 +2,9 @@
 
 /**
  *
- * @package phpBB Extension - Chevereto API
- * @copyright (c) 2017 Lord Beaver
+ * Chevereto API
+ *
+ * @copyright © 2017, 2018 Lord Beaver
  * @license https://opensource.org/licenses/BSD-3-Clause The 3-Clause BSD License
  *
  */
@@ -30,7 +31,7 @@ class listener implements EventSubscriberInterface
 		return array(
 			'core.message_parser_check_message'	 => 'chevereto',
 			'core.page_header_after'			 => 'template',
-			'core.user_setup'					 => 'language'
+			'core.user_setup'					 => 'language',
 		);
 	}
 
@@ -53,11 +54,12 @@ class listener implements EventSubscriberInterface
 	 * Constructor
 	 *
 	 * @param \phpbb\cache\driver\driver_interface	$cache
-	 * @param \phpbb\config\config			$config
-	 * @param \phpbb\log\log			$log
-	 * @param \phpbb\user				$user
+	 * @param \phpbb\config\config					$config
+	 * @param \phpbb\log\log						$log
+	 * @param \phpbb\user							$user
 	 */
-	public function __construct(\phpbb\cache\driver\driver_interface $cache, \phpbb\config\config $config, \phpbb\log\log_interface $log, \phpbb\template\template $template, \phpbb\user $user)
+	public function __construct(\phpbb\cache\driver\driver_interface $cache, \phpbb\config\config $config,
+			\phpbb\log\log_interface $log, \phpbb\template\template $template, \phpbb\user $user)
 	{
 		$this->cache	 = $cache;
 		$this->config	 = $config;
@@ -70,8 +72,10 @@ class listener implements EventSubscriberInterface
 	{
 		$allow_bbcode		 = $event['allow_bbcode'];
 		$allow_img_bbcode	 = $event['allow_img_bbcode'];
+		$allow_url_bbcode	 = $event['allow_url_bbcode'];
 		$curl				 = false;
 		$handlers			 = array();
+		$images				 = array();
 		$message			 = $event['message'];
 		$options			 = array(
 			CURLOPT_HEADER			 => false,
@@ -80,21 +84,32 @@ class listener implements EventSubscriberInterface
 			CURLOPT_TIMEOUT			 => 10,
 			CURLOPT_URL				 => $this->config['chevereto_url'] . '?key=' . $this->config['chevereto_key'],
 		);
+		$type				 = 'bbcode-embed';
 
 		if ($allow_bbcode && $allow_img_bbcode)
 		{
-			$images	 = array();
-			preg_match_all('#\[img\](.*)\[/img\]#uiU', $message, $images[], PREG_SET_ORDER);
-			$images	 = $images[0];
+			preg_match_all('#\[img\](.*)\[/img\]#uisU', $message, $images[], PREG_SET_ORDER);
 
-			foreach ($images as $image)
+			foreach ($images[0] as $image)
 			{
-				if ($this->check($image[1]))
+				$img_code	 = $image[0];
+				$img_url	 = str_replace(' ', '%20', trim($image[1]));
+
+				if ($allow_url_bbcode && $this->config['chevereto_type'] != $type)
 				{
-					$hash	 = '_chv_i_' . md5($image[1]);
-					if ($ok		 = $this->cache->get($hash))
+					if (!preg_match('#\[url(=(.*))?\]' . preg_quote($img_code) . '\[/url\]#uisU', $message))
 					{
-						$message = str_replace($image[0], '[img]' . $ok . '[/img]', $message);
+						$type = $this->config['chevereto_type'];
+					}
+				}
+
+				if ($this->check($img_url))
+				{
+					$hash = $this->hash($img_url);
+
+					if ($ok = $this->cache->get($hash))
+					{
+						$message = $this->replace($ok, $message, $img_code, $type);
 					}
 					else
 					{
@@ -103,12 +118,13 @@ class listener implements EventSubscriberInterface
 							$mh		 = curl_multi_init();
 							$curl	 = true;
 						}
+
 						if (!isset($handlers['ch'][$hash]))
 						{
-							$handlers['im'][$hash]	 = $image[0];
+							$handlers['im'][$hash]	 = $img_code;
 							$handlers['ch'][$hash]	 = curl_init();
 							curl_setopt_array($handlers['ch'][$hash], $options);
-							curl_setopt($handlers['ch'][$hash], CURLOPT_POSTFIELDS, array('source' => $image[1]));
+							curl_setopt($handlers['ch'][$hash], CURLOPT_POSTFIELDS, array('source' => $img_url));
 							curl_multi_add_handle($mh, $handlers['ch'][$hash]);
 						}
 					}
@@ -118,32 +134,35 @@ class listener implements EventSubscriberInterface
 			if ($curl)
 			{
 				$running = null;
+
 				do
 				{
 					curl_multi_exec($mh, $running);
 				} while ($running > 0);
 
-				foreach ($handlers['im'] as $hash => $image)
+				foreach ($handlers['im'] as $hash => $img_code)
 				{
 					if ($ok = curl_multi_getcontent($handlers['ch'][$hash]))
 					{
 						curl_multi_remove_handle($mh, $handlers['ch'][$hash]);
 						curl_close($handlers['ch'][$hash]);
 						$ok = json_decode($ok, true);
+
 						if ($ok['status_code'] == 200)
 						{
-							$message = str_replace($image, '[img]' . $ok['image']['url'] . '[/img]', $message);
-							$this->cache->put($hash, $ok['image']['url'], 86400);
+							$message = $this->replace($ok['image'], $message, $img_code, $type);
+							$this->cache->put($hash, $ok['image'], 86400);
 						}
 						else if ($this->config['chevereto_debug'])
 						{
-							$this->log->add(critical, $this->user->data['user_id'], $this->user->ip, 'LOG_CHV_ERROR', false, array(
+							$this->log->add('critical', $this->user->data['user_id'], $this->user->ip, 'LOG_CHV_ERROR', false, array(
 								$ok['error']['code'],
 								$ok['error']['message'],
 							));
 						}
 					}
 				}
+
 				curl_multi_close($mh);
 			}
 
@@ -167,20 +186,20 @@ class listener implements EventSubscriberInterface
 			'CHV_PLUGIN_COLOR'	 => $this->config['chevereto_color'],
 			'CHV_PLUGIN_ENABLE'	 => $this->config['chevereto_plugin'] ? true : false,
 			'CHV_PLUGIN_HOST'	 => $this->host(),
-			'CHV_PLUGIN_TYPE'	 => $this->config['chevereto_type'],
+			'CHV_PLUGIN_TYPE'	 => $this->config['allow_post_links'] ? $this->config['chevereto_type'] : 'bbcode-embed',
 		));
 	}
 
-	private function check($image)
+	private function check($img_url)
 	{
-		$image	 = parse_url(strtolower($image));
-		$hash	 = '_chv_h_' . md5($image['host']);
+		$img_url = parse_url(strtolower($img_url));
+		$hash	 = $this->hash($img_url['host']);
 
 		if ($result = $this->cache->get($hash))
 		{
 			return $result;
 		}
-		else if ($this->config['chevereto_https'] && $image['scheme'] == 'https')
+		else if ($this->config['chevereto_https'] && $img_url['scheme'] == 'https')
 		{
 			$result = false;
 		}
@@ -190,23 +209,25 @@ class listener implements EventSubscriberInterface
 				strtolower($this->config['server_name']),
 				$this->host(),
 			);
+
 			if (!empty($this->config['chevereto_exclude']))
 			{
 				$exclude = array_merge($exclude, explode(',', strtolower($this->config['chevereto_exclude'])));
 			}
-			$image	 = $image['host'];
+
+			$host	 = $img_url['host'];
 			$result	 = true;
 
-			if (in_array($image, $exclude))
+			if (in_array($host, $exclude))
 			{
 				$result = false;
 			}
 			else if ($this->config['chevereto_subdomain'])
 			{
-				while ($result && substr_count($image, '.') > 1)
+				while ($result && substr_count($host, '.') > 1)
 				{
-					$image	 = substr(strstr($image, '.'), 1);
-					$result	 = !in_array($image, $exclude);
+					$host	 = substr(strstr($host, '.'), 1);
+					$result	 = !in_array($host, $exclude);
 				}
 			}
 		}
@@ -215,9 +236,50 @@ class listener implements EventSubscriberInterface
 		return $result;
 	}
 
+	private function hash($url)
+	{
+		if (substr_count($url, '/'))
+		{
+			$result = '_chv_h_beta_' . md5($url);
+		}
+		else
+		{
+			$result = '_chv_h_' . md5($url);
+		}
+
+		return $result;
+	}
+
 	private function host()
 	{
 		$result = parse_url(strtolower($this->config['chevereto_url']), PHP_URL_HOST);
+		return $result;
+	}
+
+	private function replace($response, $message, $img_code, $type)
+	{
+		if ($type == 'bbcode-embed')
+		{
+			$result = str_replace($img_code, '[img]' . $response['url'] . '[/img]', $message);
+		}
+		else
+		{
+			switch ($type)
+			{
+				case 'bbcode-embed-full':
+					$url = $response['url'];
+					break;
+				case 'bbcode-embed-medium':
+					$url = isset($response['medium']['url']) ? $response['medium']['url'] : $response['url'];
+					break;
+				case 'bbcode-embed-thumbnail':
+					$url = isset($response['thumb']['url']) ? $response['thumb']['url'] : $response['url'];
+					break;
+			}
+
+			$result = str_replace($img_code, '[url=' . $response['url_viewer'] . '][img]' . $url . '[/img][/url]', $message);
+		}
+
 		return $result;
 	}
 

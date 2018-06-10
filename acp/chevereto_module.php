@@ -2,8 +2,9 @@
 
 /**
  *
- * @package phpBB Extension - Chevereto API
- * @copyright (c) 2017 Lord Beaver
+ * Chevereto API
+ *
+ * @copyright © 2017 Lord Beaver
  * @license https://opensource.org/licenses/BSD-3-Clause The 3-Clause BSD License
  *
  */
@@ -54,6 +55,7 @@ class chevereto_module
 			{
 				trigger_error('FORM_INVALID');
 			}
+
 			$this->config->set('chevereto_color', $this->request->variable('chv_color', 'default', true));
 			$this->config->set('chevereto_debug', $this->request->variable('chv_debug', 0));
 			$this->config->set('chevereto_exclude', str_replace(' ', '', $this->request->variable('chv_exclude', '', true)));

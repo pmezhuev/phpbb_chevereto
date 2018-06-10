@@ -2,8 +2,9 @@
 
 /**
  *
- * @package phpBB Extension - Chevereto API [English]
- * @copyright (c) 2017 Lord Beaver
+ * Chevereto API [English]
+ *
+ * @copyright © 2017, 2018 Lord Beaver
  * @license https://opensource.org/licenses/BSD-3-Clause The 3-Clause BSD License
  *
  */
@@ -42,9 +43,9 @@ $lang = array_merge($lang, array(
 	'ACP_CHV_PLUGIN_OPTIONS'	 => 'Plugin options',
 	'ACP_CHV_PLUGIN_TYPE'		 => 'Embed codes',
 	'ACP_CHV_TITLE'				 => 'Chevereto API',
-	'ACP_CHV_TYPE_DEFAULT'		 => 'BBCode medium linked',
 	'ACP_CHV_TYPE_EMBED'		 => 'BBCode full',
 	'ACP_CHV_TYPE_FULL'			 => 'BBCode full linked',
+	'ACP_CHV_TYPE_MEDIUM'		 => 'BBCode medium linked',
 	'ACP_CHV_TYPE_THUMBNAIL'	 => 'BBCode thumbnail linked',
 	'ACP_CHV_URL'				 => 'Request URL',
-	));
+));

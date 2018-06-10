@@ -2,8 +2,9 @@
 
 /**
  *
- * @package phpBB Extension - Chevereto API [Russian]
- * @copyright (c) 2017 Lord Beaver
+ * Chevereto API [Russian]
+ *
+ * @copyright © 2017, 2018 Lord Beaver
  * @license https://opensource.org/licenses/BSD-3-Clause The 3-Clause BSD License
  *
  */
@@ -42,9 +43,9 @@ $lang = array_merge($lang, array(
 	'ACP_CHV_PLUGIN_OPTIONS'	 => 'Параметры плагина',
 	'ACP_CHV_PLUGIN_TYPE'		 => 'Коды для встраивания',
 	'ACP_CHV_TITLE'				 => 'Chevereto API',
-	'ACP_CHV_TYPE_DEFAULT'		 => 'BB-код среднего размера со ссылкой',
-	'ACP_CHV_TYPE_EMBED'		 => 'BB-код полноразмерного',
-	'ACP_CHV_TYPE_FULL'			 => 'BB-код полноразмерного со ссылкой',
-	'ACP_CHV_TYPE_THUMBNAIL'	 => 'BB-код миниатюры со ссылкой',
+	'ACP_CHV_TYPE_EMBED'		 => 'BBCode полноразмерного',
+	'ACP_CHV_TYPE_FULL'			 => 'BBCode полноразмерного со ссылкой',
+	'ACP_CHV_TYPE_MEDIUM'		 => 'BBCode среднего размера со ссылкой',
+	'ACP_CHV_TYPE_THUMBNAIL'	 => 'BBCode миниатюры со ссылкой',
 	'ACP_CHV_URL'				 => 'URL запроса',
-	));
+));
