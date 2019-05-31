@@ -97,7 +97,7 @@ class listener implements EventSubscriberInterface
 
 				if ($allow_url_bbcode && $this->config['chevereto_type'] != $type)
 				{
-					if (!preg_match('#\[url(=(.*))?\]' . preg_quote($img_code) . '\[/url\]#uisU', $message))
+					if (!preg_match('#\[url(=(.*))?\](.*)?' . preg_quote($img_code) . '(.*)?\[/url\]#uisU', $message))
 					{
 						$type = $this->config['chevereto_type'];
 					}

@@ -15,6 +15,20 @@
 			<dd><input type="text" class="autowidth" name="chv_key" id="chv_key" size="40" maxlength="50" value="{{ CHV_KEY }}" /></dd>
 		</dl>
 		<dl>
+			<dt>
+				<label for="chv_type">{{ lang('ACP_CHV_TYPE') ~ lang('COLON') }}</label><br />
+				<span>{{ lang('ACP_CHV_TYPE_EXPLAIN') }}</span>
+			</dt>
+			<dd>
+				<select name="chv_type" id="chv_type">
+					<option value="bbcode-embed"{% if CHV_TYPE == "bbcode-embed" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_TYPE_EMBED') }}</option>
+					<option value="bbcode-embed-full"{% if CHV_TYPE == "bbcode-embed-full" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_TYPE_FULL') }}</option>
+					<option value="bbcode-embed-medium"{% if CHV_TYPE == "bbcode-embed-medium" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_TYPE_MEDIUM') }}</option>
+					<option value="bbcode-embed-thumbnail"{% if CHV_TYPE == "bbcode-embed-thumbnail" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_TYPE_THUMBNAIL') }}</option>
+				</select>
+			</dd>
+		</dl>
+		<dl>
 			<dt><label for="chv_debug">{{ lang('ACP_CHV_DEBUG') ~ lang('COLON') }}</label></dt>
 			<dd>
 				<label><input type="radio" class="radio" name="chv_debug" id="chv_debug" value="1" {% if CHV_DEBUG %}checked="checked"{% endif %}/> {{ lang('YES') }}</label>
@@ -51,27 +65,17 @@
 				</select>
 			</dd>
 		</dl>
-		<dl>
-			<dt><label for="chv_type">{{ lang('ACP_CHV_PLUGIN_TYPE') ~ lang('COLON') }}</label></dt>
-			<dd>
-				<select name="chv_type" id="chv_type">
-					<option value="bbcode-embed"{% if CHV_TYPE == "bbcode-embed" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_TYPE_EMBED') }}</option>
-					<option value="bbcode-embed-full"{% if CHV_TYPE == "bbcode-embed-full" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_TYPE_FULL') }}</option>
-					<option value="bbcode-embed-medium"{% if CHV_TYPE == "bbcode-embed-medium" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_TYPE_MEDIUM') }}</option>
-					<option value="bbcode-embed-thumbnail"{% if CHV_TYPE == "bbcode-embed-thumbnail" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_TYPE_THUMBNAIL') }}</option>
-				</select>
-			</dd>
-		</dl>
 	</fieldset>
 
 	<fieldset>
-		<legend>{{ lang('ACP_CHV_EXCLUDE_OPTIONS') }}</legend>
+		<legend>{{ lang('ACP_CHV_EXCLUDE') }}</legend>
+		<p>{{ lang('ACP_CHV_EXCLUDE_EXPLAIN') }}</p>
 		<dl>
 			<dt>
-				<label for="chv_exclude">{{ lang('ACP_CHV_EXCLUDE') ~ lang('COLON') }}</label><br />
-				<span>{{ lang('ACP_CHV_EXCLUDE_EXPLAIN') }}</span>
+				<label for="chv_exclude">{{ lang('ACP_CHV_EXCLUDE_LIST') ~ lang('COLON') }}</label><br />
+				<span>{{ lang('ACP_CHV_EXCLUDE_LIST_EXPLAIN') }}</span>
 			</dt>
-			<dd><textarea name="chv_exclude" id="chv_exclude" rows="3" cols="40">{{ CHV_EXCLUDE }}</textarea></dd>
+			<dd><textarea name="chv_exclude" id="chv_exclude" rows="3" cols="40" maxlength="255">{{ CHV_EXCLUDE }}</textarea></dd>
 		</dl>
 		<dl>
 			<dt><label for="chv_subdomain">{{ lang('ACP_CHV_EXCLUDE_SUB') ~ lang('COLON') }}</label></dt>

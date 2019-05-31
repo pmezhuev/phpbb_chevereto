@@ -27,7 +27,10 @@ class chevereto_0_4_1 extends \phpbb\db\migration\migration
 	public function revert_data()
 	{
 		return array(
-			array('if', array((!isset($this->config['onlyfriends_version'])), array('module.remove', array('acp', false, 'ACP_ONLYFRIENDS_EXT')))),
+			array('if', array(
+					(!isset($this->config['onlyfriends_version'])),
+					array('module.remove', array('acp', false, 'ACP_ONLYFRIENDS_EXT')),
+				)),
 		);
 	}
 
