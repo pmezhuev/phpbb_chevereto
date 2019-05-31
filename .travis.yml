@@ -1,6 +1,6 @@
 language: php
 sudo: required
-dist: xenial
+dist: precise
 
 matrix:
   include:
