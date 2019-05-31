@@ -5,7 +5,7 @@
  * Chevereto API
  *
  * @copyright © 2017 Lord Beaver
- * @license https://opensource.org/licenses/BSD-3-Clause The 3-Clause BSD License
+ * @license https://opensource.org/licenses/GPL-2.0 GNU General Public License version 2
  *
  */
 
