@@ -2,10 +2,10 @@ services:
     lordbeaver.chevereto.listener:
         class: lordbeaver\chevereto\event\listener
         arguments:
-            - @cache.driver
-            - @config
-            - @log
-            - @template
-            - @user
+            - '@cache.driver'
+            - '@config'
+            - '@log'
+            - '@template'
+            - '@user'
         tags:
             - { name: event.listener }
