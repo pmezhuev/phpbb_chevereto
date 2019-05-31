@@ -4,7 +4,7 @@
  *
  * Chevereto API
  *
- * @copyright © 2017 Lord Beaver
+ * @copyright © 2017, 2019 Lord Beaver
  * @license https://opensource.org/licenses/GPL-2.0 GNU General Public License version 2
  *
  */
@@ -63,7 +63,8 @@ class chevereto_module
 			$this->config->set('chevereto_key', $this->request->variable('chv_key', '', true));
 			$this->config->set('chevereto_plugin', $this->request->variable('chv_plugin', 0));
 			$this->config->set('chevereto_subdomain', $this->request->variable('chv_subdomain', 1));
-			$this->config->set('chevereto_type', $this->request->variable('chv_type', 'bbcode-embed-medium', true));
+			$this->config->set('chevereto_type_img', $this->request->variable('chv_type_img', 'bbcode-embed', true));
+			$this->config->set('chevereto_type_pup', $this->request->variable('chv_type_pup', 'bbcode-embed-medium', true));
 			$this->config->set('chevereto_url', $this->request->variable('chv_url', '', true));
 			trigger_error($this->user->lang['CONFIG_UPDATED'] . adm_back_link($this->u_action));
 		}
@@ -76,7 +77,8 @@ class chevereto_module
 			'CHV_KEY'		 => $this->config['chevereto_key'],
 			'CHV_PLUGIN'	 => $this->config['chevereto_plugin'] ? true : false,
 			'CHV_SUBDOMAIN'	 => $this->config['chevereto_subdomain'] ? true : false,
-			'CHV_TYPE'		 => $this->config['chevereto_type'],
+			'CHV_TYPE_IMG'	 => $this->config['chevereto_type_img'],
+			'CHV_TYPE_PUP'	 => $this->config['chevereto_type_pup'],
 			'CHV_URL'		 => $this->config['chevereto_url'],
 			'U_ACTION'		 => $this->u_action,
 		));

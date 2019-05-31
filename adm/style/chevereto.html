@@ -15,16 +15,13 @@
 			<dd><input type="text" class="autowidth" name="chv_key" id="chv_key" size="40" maxlength="50" value="{{ CHV_KEY }}" /></dd>
 		</dl>
 		<dl>
-			<dt>
-				<label for="chv_type">{{ lang('ACP_CHV_TYPE') ~ lang('COLON') }}</label><br />
-				<span>{{ lang('ACP_CHV_TYPE_EXPLAIN') }}</span>
-			</dt>
+			<dt><label for="chv_type_img">{{ lang('ACP_CHV_TYPE') ~ lang('COLON') }}</label></dt>
 			<dd>
-				<select name="chv_type" id="chv_type">
-					<option value="bbcode-embed"{% if CHV_TYPE == "bbcode-embed" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_TYPE_EMBED') }}</option>
-					<option value="bbcode-embed-full"{% if CHV_TYPE == "bbcode-embed-full" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_TYPE_FULL') }}</option>
-					<option value="bbcode-embed-medium"{% if CHV_TYPE == "bbcode-embed-medium" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_TYPE_MEDIUM') }}</option>
-					<option value="bbcode-embed-thumbnail"{% if CHV_TYPE == "bbcode-embed-thumbnail" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_TYPE_THUMBNAIL') }}</option>
+				<select name="chv_type_img" id="chv_type_img">
+					<option value="bbcode-embed"{% if CHV_TYPE_IMG == "bbcode-embed" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_TYPE_EMBED') }}</option>
+					<option value="bbcode-embed-full"{% if CHV_TYPE_IMG == "bbcode-embed-full" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_TYPE_FULL') }}</option>
+					<option value="bbcode-embed-medium"{% if CHV_TYPE_IMG == "bbcode-embed-medium" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_TYPE_MEDIUM') }}</option>
+					<option value="bbcode-embed-thumbnail"{% if CHV_TYPE_IMG == "bbcode-embed-thumbnail" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_TYPE_THUMBNAIL') }}</option>
 				</select>
 			</dd>
 		</dl>
@@ -62,6 +59,17 @@
 					<option value="red"{% if CHV_COLOR == "red" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_COLOR_RED') }}</option>
 					<option value="grey"{% if CHV_COLOR == "grey" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_COLOR_GREY') }}</option>
 					<option value="black"{% if CHV_COLOR == "black" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_COLOR_BLACK') }}</option>
+				</select>
+			</dd>
+		</dl>
+		<dl>
+			<dt><label for="chv_type_pup">{{ lang('ACP_CHV_TYPE') ~ lang('COLON') }}</label></dt>
+			<dd>
+				<select name="chv_type_pup" id="chv_type_pup">
+					<option value="bbcode-embed"{% if CHV_TYPE_PUP == "bbcode-embed" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_TYPE_EMBED') }}</option>
+					<option value="bbcode-embed-full"{% if CHV_TYPE_PUP == "bbcode-embed-full" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_TYPE_FULL') }}</option>
+					<option value="bbcode-embed-medium"{% if CHV_TYPE_PUP == "bbcode-embed-medium" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_TYPE_MEDIUM') }}</option>
+					<option value="bbcode-embed-thumbnail"{% if CHV_TYPE_PUP == "bbcode-embed-thumbnail" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_TYPE_THUMBNAIL') }}</option>
 				</select>
 			</dd>
 		</dl>

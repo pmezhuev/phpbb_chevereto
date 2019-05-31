@@ -95,11 +95,11 @@ class listener implements EventSubscriberInterface
 				$img_code	 = $image[0];
 				$img_url	 = str_replace(' ', '%20', trim($image[1]));
 
-				if ($allow_url_bbcode && $this->config['chevereto_type'] != $type)
+				if ($allow_url_bbcode && $this->config['chevereto_type_img'] != $type)
 				{
 					if (!preg_match('#\[url(=(.*))?\](.*)?' . preg_quote($img_code) . '(.*)?\[/url\]#uisU', $message))
 					{
-						$type = $this->config['chevereto_type'];
+						$type = $this->config['chevereto_type_img'];
 					}
 				}
 
@@ -186,7 +186,7 @@ class listener implements EventSubscriberInterface
 			'CHV_PLUGIN_COLOR'	 => $this->config['chevereto_color'],
 			'CHV_PLUGIN_ENABLE'	 => $this->config['chevereto_plugin'] ? true : false,
 			'CHV_PLUGIN_HOST'	 => $this->host(),
-			'CHV_PLUGIN_TYPE'	 => $this->config['allow_post_links'] ? $this->config['chevereto_type'] : 'bbcode-embed',
+			'CHV_PLUGIN_TYPE'	 => $this->config['allow_post_links'] ? $this->config['chevereto_type_pup'] : 'bbcode-embed',
 		));
 	}
 

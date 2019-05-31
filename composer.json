@@ -1,7 +1,7 @@
 {
     "name": "lordbeaver/chevereto",
     "type": "phpbb-extension",
-    "description": "Расширение позволяет автоматически загружать изображения из BBCode [img] на хостинг с Chevereto.",
+    "description": "Chevereto API and popup upload plugin (PUP).",
     "homepage": "https://onlystorage.org/page/phpbb",
     "version": "0.4.3",
     "time": "2019-05-31",

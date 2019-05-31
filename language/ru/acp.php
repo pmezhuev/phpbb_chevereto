@@ -44,7 +44,6 @@ $lang = array_merge($lang, array(
 	'ACP_CHV_PLUGIN_OPTIONS'		 => 'Параметры плагина',
 	'ACP_CHV_TITLE'					 => 'Chevereto API',
 	'ACP_CHV_TYPE'					 => 'Коды для встраивания',
-	'ACP_CHV_TYPE_EXPLAIN'			 => 'Значение параметра влияет на обработку BBCode [img] и работу «Плагина».',
 	'ACP_CHV_TYPE_EMBED'			 => 'BBCode полноразмерного',
 	'ACP_CHV_TYPE_FULL'				 => 'BBCode полноразмерного со ссылкой',
 	'ACP_CHV_TYPE_MEDIUM'			 => 'BBCode среднего размера со ссылкой',
