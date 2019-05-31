@@ -4,10 +4,6 @@ dist: precise
 
 matrix:
   include:
-    - php: 5.3.3
-      env: DB=mysqli
-    - php: 5.3
-      env: DB=mysqli # MyISAM
     - php: 5.4
       env: DB=mysqli
     - php: 5.4
@@ -40,6 +36,13 @@ branches:
   only:
     - master
     - /^\d+(\.\d+)?\.x$/
+
+before_install:
+  - sudo mkdir travis
+  - git clone "https://github.com/phpbb/phpbb-ext-acme-demo.git"
+  - sudo cp phpbb-ext-acme-demo/phpunit.xml.dist ./
+  - sudo cp phpbb-ext-acme-demo/travis/prepare-phpbb.sh travis
+  - sudo rm -rf phpbb-ext-acme-demo
 
 install:
   - travis/prepare-phpbb.sh $EXTNAME $PHPBB_BRANCH
