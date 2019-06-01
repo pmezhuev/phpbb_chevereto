@@ -233,19 +233,13 @@ class listener implements EventSubscriberInterface
 		}
 
 		$this->cache->put($hash, $result, 3600);
+
 		return $result;
 	}
 
 	private function hash($url)
 	{
-		if (substr_count($url, '/'))
-		{
-			$result = '_chv_h_beta_' . md5($url);
-		}
-		else
-		{
-			$result = '_chv_h_' . md5($url);
-		}
+		$result = '_chv_h_' . md5($url);
 
 		return $result;
 	}
@@ -253,6 +247,7 @@ class listener implements EventSubscriberInterface
 	private function host()
 	{
 		$result = parse_url(strtolower($this->config['chevereto_url']), PHP_URL_HOST);
+
 		return $result;
 	}
 

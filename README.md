@@ -2,8 +2,8 @@
 [![Build Status](https://travis-ci.org/LordBeaver/phpbb_chevereto.svg?branch=master)](https://travis-ci.org/LordBeaver/phpbb_chevereto)
 
 ## Requirements
-* phpBB 3.1
-* PHP 5.4
+* phpBB 3.1+
+* PHP 5.4+
 * curl
 
 ## Install
