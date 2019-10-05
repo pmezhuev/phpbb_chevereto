@@ -4,7 +4,7 @@
  *
  * Chevereto API
  *
- * @copyright © 2017, 2018 Lord Beaver
+ * @copyright © 2017—2019 Lord Beaver
  * @license https://opensource.org/licenses/GPL-2.0 GNU General Public License version 2
  *
  */
@@ -77,6 +77,7 @@ class listener implements EventSubscriberInterface
 		$handlers			 = array();
 		$images				 = array();
 		$message			 = $event['message'];
+		$mh					 = null;
 		$options			 = array(
 			CURLOPT_HEADER			 => false,
 			CURLOPT_POST			 => true,
@@ -88,8 +89,11 @@ class listener implements EventSubscriberInterface
 
 		if ($allow_bbcode && $allow_img_bbcode)
 		{
-			preg_match_all('#\[img\](.*)\[/img\]#uisU', $message, $images[], PREG_SET_ORDER);
+			preg_match_all('#\[img\](.*)\[/img\]#uisU', $message, $images, PREG_SET_ORDER);
+		}
 
+		if (!empty($images[0]))
+		{
 			foreach ($images[0] as $image)
 			{
 				$img_code	 = $image[0];
@@ -195,9 +199,9 @@ class listener implements EventSubscriberInterface
 		$img_url = parse_url(strtolower($img_url));
 		$hash	 = $this->hash($img_url['host']);
 
-		if ($result = $this->cache->get($hash))
+		if ($ok = $this->cache->get($hash))
 		{
-			return $result;
+			$result = $ok;
 		}
 		else if ($this->config['chevereto_https'] && $img_url['scheme'] == 'https')
 		{
@@ -230,9 +234,9 @@ class listener implements EventSubscriberInterface
 					$result	 = !in_array($host, $exclude);
 				}
 			}
-		}
 
-		$this->cache->put($hash, $result, 3600);
+			$this->cache->put($hash, $result, 3600);
+		}
 
 		return $result;
 	}
@@ -253,6 +257,8 @@ class listener implements EventSubscriberInterface
 
 	private function replace($response, $message, $img_code, $type)
 	{
+		$url = null;
+
 		if ($type == 'bbcode-embed')
 		{
 			$result = str_replace($img_code, '[img]' . $response['url'] . '[/img]', $message);
