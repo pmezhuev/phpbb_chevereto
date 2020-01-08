@@ -4,7 +4,7 @@
  *
  * Chevereto API
  *
- * @copyright © 2017—2019 Lord Beaver
+ * @copyright © 2017—2020 Lord Beaver
  * @license https://opensource.org/licenses/GPL-2.0 GNU General Public License version 2
  *
  */
@@ -94,7 +94,7 @@ class listener implements EventSubscriberInterface
 
 		if (!empty($images[0]))
 		{
-			foreach ($images[0] as $image)
+			foreach ($images as $image)
 			{
 				$img_code	 = $image[0];
 				$img_url	 = str_replace(' ', '%20', trim($image[1]));
