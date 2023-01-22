@@ -1,4 +1,4 @@
-# Chevereto API for phpBB 3.2/3.3
+# Chevereto API and PUP for phpBB 3.2/3.3
 
 ## Requirements
 * phpBB 3.2+
