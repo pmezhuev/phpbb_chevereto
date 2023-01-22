@@ -3,8 +3,8 @@
     "type": "phpbb-extension",
     "description": "Chevereto API and popup upload plugin (PUP).",
     "homepage": "https://onlystorage.org/page/phpbb",
-    "version": "0.4.4",
-    "time": "2019-10-05",
+    "version": "0.5.0",
+    "time": "2023-01-22",
     "license": "GPL-2.0-only",
     "authors": [
         {
@@ -23,12 +23,13 @@
     "extra": {
         "display-name": "Chevereto API",
         "soft-require": {
-            "phpbb/phpbb": ">=3.1.2"
+            "phpbb/phpbb": ">=3.2.0,<=3.4.0"
         },
         "version-check": {
             "host": "onlystorage.org",
             "directory": "/content/pages",
-            "filename": "version.json"
+            "filename": "version.json",
+            "sss": true
         }
     }
 }

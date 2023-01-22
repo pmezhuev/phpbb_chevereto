@@ -19,6 +19,6 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
-	'ACP_CHEVERETO_SETTING'	 => 'Chevereto API',
-	'ACP_ONLYFRIENDS_EXT'	 => 'Расширения OnlyFriends',
+	'ACP_CHEVERETO_SETTING' => 'Chevereto API',
+	'ACP_ONLYFRIENDS_EXT'   => 'Расширения OnlyFriends',
 ));

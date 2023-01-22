@@ -4,6 +4,7 @@ services:
         arguments:
             - '@cache.driver'
             - '@config'
+            - '@files.factory'
             - '@log'
             - '@template'
             - '@user'

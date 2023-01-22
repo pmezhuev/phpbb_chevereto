@@ -13,13 +13,12 @@ namespace lordbeaver\chevereto\migrations;
 
 class chevereto_0_3_1 extends \phpbb\db\migration\migration
 {
-
 	public function effectively_installed()
 	{
-		return (isset($this->config['chevereto_version']) && version_compare($this->config['chevereto_version'], '0.3.1', '>='));
+		return isset($this->config['chevereto_version']) && version_compare($this->config['chevereto_version'], '0.3.1', '>=');
 	}
 
-	static public function depends_on()
+	public static function depends_on()
 	{
 		return array('\lordbeaver\chevereto\migrations\chevereto_0_3_0');
 	}
@@ -31,5 +30,4 @@ class chevereto_0_3_1 extends \phpbb\db\migration\migration
 			array('config.update', array('chevereto_version', '0.3.1')),
 		);
 	}
-
 }
