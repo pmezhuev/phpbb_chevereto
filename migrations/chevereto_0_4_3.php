@@ -35,7 +35,12 @@ class chevereto_0_4_3 extends \phpbb\db\migration\migration
 		}
 
 		return array(
-			array('config.add', array('chevereto_type_img', $type_pup)),
+			array('if', array(
+				isset($this->config['chevereto_type']),
+				array('config.remove', array('chevereto_type')),
+			)),
+			array('config.add', array('chevereto_type_img', 'bbcode-embed')),
+			array('config.add', array('chevereto_type_pup', $type_pup)),
 			array('config.update', array('chevereto_version', '0.4.3')),
 		);
 	}
