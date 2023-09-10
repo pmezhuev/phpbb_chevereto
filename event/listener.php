@@ -256,6 +256,7 @@ class listener implements EventSubscriberInterface
 			'CHV_PUP_COLOR'  => $this->config['chevereto_pup_color'],
 			'CHV_PUP_ENABLE' => $this->config['chevereto_pup_enable'] ? true : false,
 			'CHV_PUP_HOST'   => $this->host(),
+			'CHV_PUP_LANG'   => $this->config['chevereto_pup_lang'],
 			'CHV_PUP_MODE'   => $this->config['chevereto_pup_mode'],
 			'CHV_PUP_TYPE'   => $this->config['allow_post_links'] ? $this->config['chevereto_type_pup'] : 'bbcode-embed',
 		));

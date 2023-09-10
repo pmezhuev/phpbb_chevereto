@@ -37,12 +37,11 @@ class chevereto_module
 		$this->language  = $this->container->get('language');
 		$this->request   = $this->container->get('request');
 		$this->template  = $this->container->get('template');
-
-		$this->language->add_lang('acp', 'lordbeaver/chevereto');
 	}
 
-	public function main($id, $mode)
+	public function main()
 	{
+		$this->language->add_lang('acp', 'lordbeaver/chevereto');
 		$this->tpl_name   = 'chevereto';
 		$this->page_title = $this->language->lang('ACP_CHV_TITLE');
 		$form_key         = 'acp_chevereto';
@@ -65,6 +64,7 @@ class chevereto_module
 			$this->config->set('chevereto_https', $this->request->variable('chv_https', 0));
 			$this->config->set('chevereto_pup_color', $this->request->variable('chv_pup_color', 'default'));
 			$this->config->set('chevereto_pup_enable', $this->request->variable('chv_pup_enable', 0));
+			$this->config->set('chevereto_pup_lang', $this->request->variable('chv_pup_lang', 'auto'));
 			$this->config->set('chevereto_pup_mode', $this->request->variable('chv_pup_mode', 'default'));
 			$this->config->set('chevereto_subdomain', $this->request->variable('chv_subdomain', 1));
 			$this->config->set('chevereto_type_img', $this->request->variable('chv_type_img', 'bbcode-embed'));
@@ -84,6 +84,7 @@ class chevereto_module
 			'CHV_NO_CURL'     => @extension_loaded('curl') ? false : true,
 			'CHV_PUP_COLOR'   => $this->config['chevereto_pup_color'],
 			'CHV_PUP_ENABLE'  => $this->config['chevereto_pup_enable'] ? true : false,
+			'CHV_PUP_LANG'    => $this->config['chevereto_pup_lang'],
 			'CHV_PUP_MODE'    => $this->config['chevereto_pup_mode'],
 			'CHV_SUBDOMAIN'   => $this->config['chevereto_subdomain'] ? true : false,
 			'CHV_TYPE_IMG'    => $this->config['chevereto_type_img'],

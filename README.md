@@ -2,11 +2,11 @@
 
 ## Requirements
 * phpBB 3.2+
-* PHP 5.4+
+* PHP 7.1+
 * curl
 
 ## Install
-1. [Download latest release](https://github.com/LordBeaver/phpbb_chevereto/releases).
+1. [Download latest release](https://github.com/pmezhuev/phpbb_chevereto/releases).
 2. Unzip to the `ext` directory of your phpBB board.
 3. Navigate in the ACP to `Customise -> Manage extensions`.
 4. Look for `Chevereto API` under the `Disabled Extensions` list and click its `Enable` link.

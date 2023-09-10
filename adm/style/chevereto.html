@@ -86,6 +86,16 @@
 			</dd>
 		</dl>
 		<dl>
+			<dt><label for="chv_pup_lang">{{ lang('ACP_CHV_PUP_LANG') ~ lang('COLON') }}</label></dt>
+			<dd>
+				<select name="chv_pup_lang" id="chv_pup_lang">
+					<option value="default"{% if CHV_PUP_LANG == "auto" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_PUP_LANG_AUTO') }}</option>
+					<option value="en"{% if CHV_PUP_LANG == "en" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_PUP_LANG_EN') }}</option>
+					<option value="ru"{% if CHV_PUP_LANG == "ru" %} selected="selected"{% endif %}>{{ lang('ACP_CHV_PUP_LANG_RU') }}</option>
+				</select>
+			</dd>
+		</dl>
+		<dl>
 			<dt><label for="chv_pup_color">{{ lang('ACP_CHV_PLUGIN_COLOR') ~ lang('COLON') }}</label></dt>
 			<dd>
 				<select name="chv_pup_color" id="chv_pup_color">
